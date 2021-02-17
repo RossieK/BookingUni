@@ -1,1 +1,26 @@
-<h1>Sample Header</h1>
+<div>
+    <div class="notification errorBox">
+        <span>Hotel name must be at least 4 chars long</span>
+    </div>
+</div>
+
+<nav>
+    <div class="left-container">
+        {{#if isAuthenticated}}
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">Add +</a></li>
+        </ul>
+        {{else}}
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">Login</a></li>
+            <li><a href="">Register</a></li>
+        </ul>
+        {{/if}}
+    </div>
+    <div class="right-container">
+        <a href="" class="log-out">{{name}}</a>
+        <a href="" class="log-out">Logout</a>
+    </div>
+</nav>
