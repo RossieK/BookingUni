@@ -17,7 +17,8 @@ ul {
     padding-inline-start: 0;
 }
 
-input[type=submit]:hover, ul>li:hover {
+input[type=submit]:hover,
+ul>li:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -27,7 +28,8 @@ input[type=submit]:hover, ul>li:hover {
     transform: scale(1.1);
 }
 
-li, .log-out {
+li,
+.log-out {
     list-style-type: none;
     display: inline-block;
     border: 2px solid lightsteelblue;
@@ -88,7 +90,10 @@ input {
     padding: 5px;
 }
 
-.create, .save-changes, .login, .register {
+.create,
+.save-changes,
+.login,
+.register {
     background: cornflowerblue;
     color: white;
     border: 2px solid lightsteelblue;
@@ -108,7 +113,7 @@ footer {
 }
 
 .background-img {
-    background: url("../../static/img/hotel.jpg") no-repeat;
+    background: url("/img/hotel.jpg") no-repeat;
     background-size: cover;
     margin: auto;
     min-height: 500px;
@@ -178,6 +183,7 @@ footer {
     color: red;
     background: none;
 }
+
 .remove:hover {
     transform: scale(1.1);
 }
@@ -197,6 +203,7 @@ footer {
 .edit:hover {
     transform: scale(1.1);
 }
+
 .book {
     list-style-type: none;
     display: inline-block;
@@ -213,7 +220,7 @@ footer {
     transform: scale(1.1);
 }
 
-.green{
+.green {
     color: green;
 }
 
@@ -295,7 +302,7 @@ footer {
 }
 
 .edit-hotel-detail {
-    background: url("../../static/img/pencil.png") center;
+    background: url("/img/pencil.png") center;
     width: 50px;
     height: 50px;
     border: 2px solid blue;
@@ -335,11 +342,13 @@ footer {
 .details {
     margin: 0;
 }
+
 .seat-form {
     display: inline-flex;
 }
 
-.seat-form input, button {
+.seat-form input,
+button {
     margin: 20px;
 }
 
@@ -468,13 +477,14 @@ h3 {
     outline: none;
 }
 
-.flex > input, .flex > div {
+.flex>input,
+.flex>div {
     width: 55%;
     text-align: left;
     margin: .5em;
 }
 
-.flex > div > input {
+.flex>div>input {
     width: 77%;
 }
 

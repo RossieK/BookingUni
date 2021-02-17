@@ -1,8 +1,10 @@
+{{#if message}}
 <div>
     <div class="notification errorBox">
-        <span>Hotel name must be at least 4 chars long</span>
+        <span>{{message}}</span>
     </div>
 </div>
+{{/if}}
 
 <nav>
     <div class="left-container">
@@ -19,8 +21,10 @@
         </ul>
         {{/if}}
     </div>
+    {{#if isAuthenticated}}
     <div class="right-container">
         <a href="" class="log-out">{{name}}</a>
         <a href="" class="log-out">Logout</a>
     </div>
+    {{/if}}
 </nav>
