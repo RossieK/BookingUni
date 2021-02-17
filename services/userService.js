@@ -4,18 +4,24 @@ const jwt = require('jsonwebtoken');
 const { salt_rounds, secret } = require('../config/config');
 
 async function register(data) {
-    const { username, password, rePassword } = {...data };
+    const { email, username, password, rePassword } = {...data };
 
-    let foundUser = await User.findOne({ username });
+    let foundUserEmail = await User.findOne({ email });
 
-    if (foundUser) {
-        throw new Error('The given username is already in use...');
+    if (foundUserEmail) {
+        throw new Error('The given email is already in use');
+    }
+
+    let foundUserName = await User.findOne({ username });
+
+    if (foundUserName) {
+        throw new Error('The given username is already in use');
     }
 
     let salt = await bcrypt.genSalt(salt_rounds);
     let hash = await bcrypt.hash(password, salt);
 
-    const user = new User({ username, password: hash });
+    const user = new User({ email, username, password: hash });
     return user.save();
 }
 

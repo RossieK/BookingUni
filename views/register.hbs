@@ -1,14 +1,14 @@
 <section id="viewRegister">
     <h2>Create your account:</h2>
-    <form id="formRegister">
+    <form id="formRegister" action="/user/register" method="POST">
         <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="Email">
+        <input type="text" id="email" name="email" placeholder="Email" value="{{oldInput.email}}">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="Enter your Username">
+        <input type="text" id="username" name="username" placeholder="Enter your Username" value={{oldInput.username}}>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="password" id="password" name="password" placeholder="Password" value={{oldInput.password}}>
         <label for="rePassword">Repeat Password:</label>
-        <input type="password" id="rePassword" name="rePassword" placeholder="Repeat Password">
+        <input type="password" id="rePassword" name="rePassword" placeholder="Repeat Password" value={{oldInput.rePassword}}>
         <input type="submit" class="register" value="Register">
     </form>
 </section>

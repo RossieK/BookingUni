@@ -19,16 +19,16 @@ router.post('/register', isGuest, registerValidator, (req, res) => {
         return;
     }
 
-    const { username, password, rePassword } = req.body;
+    const { email, username, password, rePassword } = req.body;
 
-    userService.register({ username, password })
+    userService.register({ email, username, password })
         .then(async(user) => {
             let token = await userService.loginUponRegistration(user);
             res.cookie(cookie_name, token);
             res.redirect('/');
         })
         .catch(err => {
-            res.render('register', {...formValidations.options, title: 'Register page', message: err.message });
+            res.render('register', { oldInput: req.body, title: 'Register page', message: err.message });
         });
 });
 

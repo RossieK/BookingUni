@@ -10,21 +10,21 @@
     <div class="left-container">
         {{#if isAuthenticated}}
         <ul>
-            <li><a href="">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="">Add +</a></li>
         </ul>
         {{else}}
         <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Login</a></li>
-            <li><a href="">Register</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/user/login">Login</a></li>
+            <li><a href="/user/register">Register</a></li>
         </ul>
         {{/if}}
     </div>
     {{#if isAuthenticated}}
     <div class="right-container">
         <a href="" class="log-out">{{name}}</a>
-        <a href="" class="log-out">Logout</a>
+        <a href="/user/logout" class="log-out">Logout</a>
     </div>
     {{/if}}
 </nav>
