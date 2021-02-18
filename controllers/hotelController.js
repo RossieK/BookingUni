@@ -88,7 +88,16 @@ router.post('/:id/edit', hotelValidator, (req, res) => {
         .catch(error => {
             console.log(error);
             res.render('edit', { message: 'Something went wrong, please try again', title: 'Edit hotel' });
-        })
+        });
+});
+
+router.get('/:id/delete', (req, res) => {
+    hotelService.deleteOne(req.params.id)
+        .then(() => res.redirect('/'))
+        .catch(error => {
+            console.log(error);
+            res.render('details', { message: 'Something went wrong, please try again', title: 'Hotel details' });
+        });
 });
 
 module.exports = router;

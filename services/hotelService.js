@@ -23,10 +23,15 @@ function updateOne(id, data) {
     return Hotel.updateOne({ _id: id }, {...data });
 }
 
+function deleteOne(id) {
+    return Hotel.deleteOne({ _id: id });
+}
+
 module.exports = {
     createHotel,
     getAll,
     getOne,
     bookOne,
-    updateOne
+    updateOne,
+    deleteOne
 }
