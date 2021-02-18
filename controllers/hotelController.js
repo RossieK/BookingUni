@@ -46,8 +46,20 @@ router.get('/:id/details', (req, res) => {
         })
         .catch(error => {
             console.log(error);
-            res.render('details', { message: 'Something went wrong, please try again', title: 'Add hotel' });
+            res.render('details', { message: 'Something went wrong, please try again', title: 'Hotel details' });
         })
 });
+
+router.get('/:id/book', (req, res) => {
+    hotelService.bookOne(req.params.id, req.user._id)
+        .then(async() => {
+            await userService.bookHotel(req.user._id, req.params.id);
+            res.redirect(`/hotel/${req.params.id}/details`);
+        })
+        .catch(error => {
+            console.log(error);
+            res.render('details', { message: 'Something went wrong, please try again', title: 'Hotel details' });
+        })
+})
 
 module.exports = router;

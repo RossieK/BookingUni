@@ -57,10 +57,17 @@ async function createHotel(id, hotelId) {
     return User.updateOne({ _id: id }, { offeredHotels: user.offeredHotels });
 }
 
+async function bookHotel(id, hotelId) {
+    let user = await User.findOne({ _id: id });
+    user.bookedHotels.push(hotelId);
+    return User.updateOne({ _id: id }, { bookedHotels: user.bookedHotels });
+}
+
 module.exports = {
     register,
     login,
     loginUponRegistration,
     getOne,
-    createHotel
+    createHotel,
+    bookHotel
 }

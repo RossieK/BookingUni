@@ -13,8 +13,15 @@ function getOne(id) {
     return Hotel.findOne({ _id: id }).lean();
 }
 
+async function bookOne(id, user) {
+    let hotel = await Hotel.findOne({ _id: id });
+    hotel.usersBooked.push(user);
+    return Hotel.updateOne({ _id: id }, { usersBooked: hotel.usersBooked });
+}
+
 module.exports = {
     createHotel,
     getAll,
-    getOne
+    getOne,
+    bookOne
 }
