@@ -5,6 +5,11 @@ function createHotel(data, owner) {
     return hotel.save();
 }
 
+function getAll() {
+    return Hotel.find().lean();
+}
+
 module.exports = {
     createHotel,
+    getAll
 }
