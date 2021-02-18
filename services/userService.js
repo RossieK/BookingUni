@@ -48,7 +48,7 @@ function loginUponRegistration(user) {
 }
 
 function getOne(id) {
-    return User.findOne({ _id: id }, { username: 1 }).lean();
+    return User.findOne({ _id: id }, { username: 1, email: 1 }).lean();
 }
 
 async function createHotel(id, hotelId) {

@@ -5,6 +5,7 @@ const registerValidator = require('../middlewares/userMiddlewareValidator');
 const formValidator = require('../middlewares/formValidator');
 const isGuest = require('../middlewares/isGuest');
 const isLogged = require('../middlewares/isLogged');
+const hotelService = require('../services/hotelService');
 
 router.get('/register', isGuest, (req, res) => {
     res.render('register', { title: 'Register page' });
@@ -51,6 +52,17 @@ router.post('/login', isGuest, async(req, res) => {
 router.get('/logout', isLogged, (req, res) => {
     res.clearCookie(cookie_name);
     res.redirect('/user/login');
+});
+
+router.get('/myprofile', isLogged, (req, res) => {
+    hotelService.getBookedByUser(req.user._id)
+        .then(hotels => {
+            res.render('profile', { title: 'My profile', hotels });
+        })
+        .catch(error => {
+            console.log(error);
+            res.render('profile', { message: 'Something went wrong, we are sorry', title: 'My profile' });
+        });
 });
 
 module.exports = router;

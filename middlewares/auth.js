@@ -17,6 +17,7 @@ module.exports = function() {
                         req.user = user;
                         res.locals.isAuthenticated = true;
                         res.locals.username = user.username;
+                        res.locals.email = user.email;
                         next();
                     }
                 })

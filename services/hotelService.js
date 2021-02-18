@@ -27,11 +27,16 @@ function deleteOne(id) {
     return Hotel.deleteOne({ _id: id });
 }
 
+function getBookedByUser(user) {
+    return Hotel.find({ usersBooked: { "$in": [user] } }).lean();
+}
+
 module.exports = {
     createHotel,
     getAll,
     getOne,
     bookOne,
     updateOne,
-    deleteOne
+    deleteOne,
+    getBookedByUser
 }
