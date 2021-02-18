@@ -26,7 +26,19 @@ router.post('/create', hotelValidator, (req, res) => {
 router.get('/:id/details', (req, res) => {
     hotelService.getOne(req.params.id)
         .then(hotel => {
-            res.render('details', { title: 'Hotel details', hotel });
+            let isOwner = false;
+            if (hotel.owner.toString() == req.user._id.toString()) {
+                isOwner = true;
+            }
+
+            let hasBooked = false;
+            hotel.usersBooked.forEach(personBooked => {
+                if (personBooked._id.toString() == req.user._id.toString()) {
+                    hasBooked = true;
+                }
+            });
+
+            res.render('details', { title: 'Hotel details', hotel, isOwner, hasBooked });
         })
         .catch(error => {
             console.log(error);
