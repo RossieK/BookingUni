@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const hotelService = require('../services/hotelService');
+const userService = require('../services/userService');
 const formValidator = require('../middlewares/formValidator');
 const hotelValidator = require('../middlewares/hotelMiddlewareValidator');
 
@@ -16,7 +17,10 @@ router.post('/create', hotelValidator, (req, res) => {
     }
 
     hotelService.createHotel(req.body, req.user._id)
-        .then(() => res.redirect('/'))
+        .then(async(hotel) => {
+            await userService.createHotel(req.user._id, hotel._id);
+            res.redirect('/')
+        })
         .catch(error => {
             console.log(error);
             res.render('create', { oldInput: {...req.body }, message: 'Something went wrong, please try again', title: 'Add hotel' });

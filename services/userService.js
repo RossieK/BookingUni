@@ -51,9 +51,16 @@ function getOne(id) {
     return User.findOne({ _id: id }, { username: 1 }).lean();
 }
 
+async function createHotel(id, hotelId) {
+    let user = await User.findOne({ _id: id });
+    user.offeredHotels.push(hotelId);
+    return User.updateOne({ _id: id }, { offeredHotels: user.offeredHotels });
+}
+
 module.exports = {
     register,
     login,
     loginUponRegistration,
     getOne,
+    createHotel
 }
