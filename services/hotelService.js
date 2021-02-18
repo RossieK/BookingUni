@@ -16,7 +16,8 @@ function getOne(id) {
 async function bookOne(id, user) {
     let hotel = await Hotel.findOne({ _id: id });
     hotel.usersBooked.push(user);
-    return Hotel.updateOne({ _id: id }, { usersBooked: hotel.usersBooked });
+    hotel.freeRooms--;
+    return Hotel.updateOne({ _id: id }, { usersBooked: hotel.usersBooked, freeRooms: hotel.freeRooms });
 }
 
 function updateOne(id, data) {
