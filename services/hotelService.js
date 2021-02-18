@@ -19,9 +19,14 @@ async function bookOne(id, user) {
     return Hotel.updateOne({ _id: id }, { usersBooked: hotel.usersBooked });
 }
 
+function updateOne(id, data) {
+    return Hotel.updateOne({ _id: id }, {...data });
+}
+
 module.exports = {
     createHotel,
     getAll,
     getOne,
-    bookOne
+    bookOne,
+    updateOne
 }

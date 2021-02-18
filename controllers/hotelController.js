@@ -46,7 +46,7 @@ router.get('/:id/details', (req, res) => {
         })
         .catch(error => {
             console.log(error);
-            res.render('details', { message: 'Something went wrong, please try again', title: 'Hotel details' });
+            res.render('details', { message: 'Something went wrong, we are sorry', title: 'Hotel details' });
         })
 });
 
@@ -58,7 +58,7 @@ router.get('/:id/book', (req, res) => {
         })
         .catch(error => {
             console.log(error);
-            res.render('details', { message: 'Something went wrong, please try again', title: 'Hotel details' });
+            res.render('details', { message: 'Something went wrong, we are sorry', title: 'Hotel details' });
         })
 });
 
@@ -66,6 +66,24 @@ router.get('/:id/edit', (req, res) => {
     hotelService.getOne(req.params.id)
         .then(hotel => {
             res.render('edit', { title: 'Edit hotel', hotel });
+        })
+        .catch(error => {
+            console.log(error);
+            res.render('edit', { message: 'Something went wrong, we are sorry', title: 'Edit hotel' });
+        })
+});
+
+router.post('/:id/edit', hotelValidator, (req, res) => {
+    const formValidations = formValidator(req);
+
+    if (!formValidations.isValid) {
+        res.render('edit', { message: formValidations.options.message, hotel: formValidations.options.oldInput, title: 'Edit hotel' });
+        return;
+    }
+
+    hotelService.updateOne(req.params.id, req.body)
+        .then(() => {
+            res.redirect(`/hotel/${req.params.id}/details`);
         })
         .catch(error => {
             console.log(error);
