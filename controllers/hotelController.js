@@ -3,6 +3,7 @@ const hotelService = require('../services/hotelService');
 const userService = require('../services/userService');
 const formValidator = require('../middlewares/formValidator');
 const hotelValidator = require('../middlewares/hotelMiddlewareValidator');
+const isCreator = require('../middlewares/isCreator');
 
 router.get('/create', (req, res) => {
     res.render('create', { title: 'Add hotel' });
@@ -50,19 +51,36 @@ router.get('/:id/details', (req, res) => {
         })
 });
 
-router.get('/:id/book', (req, res) => {
-    hotelService.bookOne(req.params.id, req.user._id)
-        .then(async() => {
-            await userService.bookHotel(req.user._id, req.params.id);
-            res.redirect(`/hotel/${req.params.id}/details`);
-        })
-        .catch(error => {
-            console.log(error);
-            res.render('details', { message: 'Something went wrong, we are sorry', title: 'Hotel details' });
-        })
+router.get('/:id/book', async(req, res) => {
+
+    let isOwner = await isCreator(req.user._id, req.params.id);
+
+    if (isOwner) {
+        res.redirect(`/hotel/${req.params.id}/details`);
+        return;
+    } else {
+        hotelService.bookOne(req.params.id, req.user._id)
+            .then(async() => {
+                await userService.bookHotel(req.user._id, req.params.id);
+                res.redirect(`/hotel/${req.params.id}/details`);
+            })
+            .catch(error => {
+                console.log(error);
+                res.render('details', { message: 'Something went wrong, we are sorry', title: 'Hotel details' });
+            });
+    }
+
 });
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', async(req, res) => {
+
+    let isOwner = await isCreator(req.user._id, req.params.id);
+
+    if (!isOwner) {
+        res.redirect(`/hotel/${req.params.id}/details`);
+        return;
+    }
+
     hotelService.getOne(req.params.id)
         .then(hotel => {
             res.render('edit', { title: 'Edit hotel', hotel });
@@ -73,7 +91,14 @@ router.get('/:id/edit', (req, res) => {
         })
 });
 
-router.post('/:id/edit', hotelValidator, (req, res) => {
+router.post('/:id/edit', hotelValidator, async(req, res) => {
+    let isOwner = await isCreator(req.user._id, req.params.id);
+
+    if (!isOwner) {
+        res.redirect(`/hotel/${req.params.id}/details`);
+        return;
+    }
+
     const formValidations = formValidator(req);
 
     if (!formValidations.isValid) {
