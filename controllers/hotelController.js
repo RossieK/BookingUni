@@ -88,7 +88,7 @@ router.get('/:id/edit', async(req, res) => {
         .catch(error => {
             console.log(error);
             res.render('edit', { message: 'Something went wrong, we are sorry', title: 'Edit hotel' });
-        })
+        });
 });
 
 router.post('/:id/edit', hotelValidator, async(req, res) => {
@@ -112,7 +112,7 @@ router.post('/:id/edit', hotelValidator, async(req, res) => {
         })
         .catch(error => {
             console.log(error);
-            res.render('edit', { message: 'Something went wrong, please try again', title: 'Edit hotel' });
+            res.render('edit', { hotel: {...req.body }, message: 'Something went wrong, please try again', title: 'Edit hotel' });
         });
 });
 
