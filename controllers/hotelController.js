@@ -23,4 +23,15 @@ router.post('/create', hotelValidator, (req, res) => {
         });
 });
 
+router.get('/:id/details', (req, res) => {
+    hotelService.getOne(req.params.id)
+        .then(hotel => {
+            res.render('details', { title: 'Hotel details', hotel });
+        })
+        .catch(error => {
+            console.log(error);
+            res.render('details', { message: 'Something went wrong, please try again', title: 'Add hotel' });
+        })
+});
+
 module.exports = router;

@@ -9,7 +9,12 @@ function getAll() {
     return Hotel.find().lean();
 }
 
+function getOne(id) {
+    return Hotel.findOne({ _id: id }).lean();
+}
+
 module.exports = {
     createHotel,
-    getAll
+    getAll,
+    getOne
 }
