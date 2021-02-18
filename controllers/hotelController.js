@@ -60,6 +60,17 @@ router.get('/:id/book', (req, res) => {
             console.log(error);
             res.render('details', { message: 'Something went wrong, please try again', title: 'Hotel details' });
         })
-})
+});
+
+router.get('/:id/edit', (req, res) => {
+    hotelService.getOne(req.params.id)
+        .then(hotel => {
+            res.render('edit', { title: 'Edit hotel', hotel });
+        })
+        .catch(error => {
+            console.log(error);
+            res.render('edit', { message: 'Something went wrong, please try again', title: 'Edit hotel' });
+        })
+});
 
 module.exports = router;
