@@ -24,7 +24,7 @@ router.post('/create', hotelValidator, (req, res) => {
         })
         .catch(error => {
             console.log(error);
-            res.render('create', { oldInput: {...req.body }, message: 'Something went wrong, please try again', title: 'Add hotel' });
+            res.render('create', { oldInput: {...req.body }, message: error.message, title: 'Add hotel' });
         });
 });
 

@@ -1,6 +1,11 @@
 const Hotel = require('../models/Hotel');
 
-function createHotel(data, owner) {
+async function createHotel(data, owner) {
+    let hotelFound = await Hotel.findOne({ name: data.name });
+
+    if (hotelFound) {
+        throw new Error('Hotel already exists');
+    }
     const hotel = new Hotel({...data, owner });
     return hotel.save();
 }
